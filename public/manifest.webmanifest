@@ -1,0 +1,17 @@
+{
+  "name": "shorti-fi — QR Code Generator",
+  "short_name": "shorti-fi",
+  "description": "Client-side QR code generator. URLs, WiFi, vCards and more — no data leaves your browser.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

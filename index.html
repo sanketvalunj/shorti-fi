@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>shorti-fi — QR Code Generator</title>
+  <meta name="description" content="Free client-side QR code generator. Create QR codes for URLs, WiFi, vCards, email and more. No data leaves your browser.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000'/%3E%3Crect x='6' y='6' width='8' height='8' fill='%23fff'/%3E%3Crect x='18' y='6' width='8' height='8' fill='%23fff'/%3E%3Crect x='6' y='18' width='8' height='8' fill='%23fff'/%3E%3Crect x='18' y='18' width='4' height='4' fill='%23fff'/%3E%3Crect x='22' y='22' width='4' height='4' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>shorti-fi</h1>
+      <p class="subtitle">QR Code Generator & URL Shortener</p>
+    </header>
+
+    <main class="main-grid">
+      <aside class="controls" role="complementary">
+        <div class="tabs" role="tablist" aria-label="Content type">
+          <button role="tab" data-type="url" aria-selected="true">URL</button>
+          <button role="tab" data-type="text" aria-selected="false">Text</button>
+          <button role="tab" data-type="wifi" aria-selected="false">WiFi</button>
+          <button role="tab" data-type="vcard" aria-selected="false">vCard</button>
+          <button role="tab" data-type="email" aria-selected="false">Email</button>
+          <button role="tab" data-type="phone" aria-selected="false">Phone</button>
+        </div>
+
+        <form id="payload-form" novalidate>
+          <div id="form-fields" role="tabpanel" aria-label="Content fields"></div>
+          <div class="validation-message" aria-live="polite" aria-atomic="true"></div>
+        </form>
+
+        <section class="panel">
+          <h2>Customize</h2>
+          <div class="field">
+            <label for="fg-color">Foreground</label>
+            <input type="color" id="fg-color" value="#000000">
+          </div>
+          <div class="field">
+            <label for="bg-color">Background</label>
+            <input type="color" id="bg-color" value="#ffffff">
+          </div>
+          <div class="field">
+            <label>
+              <input type="checkbox" id="transparent-bg"> Transparent background
+            </label>
+          </div>
+          <div class="field">
+            <label for="dot-style">Dot style</label>
+            <select id="dot-style">
+              <option value="square">Square</option>
+              <option value="rounded">Rounded</option>
+              <option value="dots">Dots</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="eye-style">Eye style</label>
+            <select id="eye-style">
+              <option value="square">Square</option>
+              <option value="rounded">Rounded</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="qr-size">Size (px)</label>
+            <input type="range" id="qr-size" min="128" max="1024" step="64" value="320">
+            <span id="qr-size-value">320</span>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Logo</h2>
+          <div class="field">
+            <label for="logo-upload" class="file-label">
+              <input type="file" id="logo-upload" accept="image/*" hidden>
+              <span>Choose logo</span>
+            </label>
+          </div>
+          <div class="field logo-size-row">
+            <label for="logo-size">Logo size: <span id="logo-size-value">20</span>%</label>
+            <input type="range" id="logo-size" min="10" max="25" value="20" disabled>
+          </div>
+          <div class="logo-warning" aria-live="polite" hidden>Logo > 20% may reduce scannability</div>
+          <button type="button" id="remove-logo" hidden>Remove logo</button>
+        </section>
+
+        <section class="panel actions">
+          <button type="button" id="download-png" class="primary" disabled>Download PNG</button>
+          <button type="button" id="copy-clipboard" class="secondary" disabled>Copy to clipboard</button>
+          <select id="export-size" aria-label="PNG export size">
+            <option value="512">512 px</option>
+            <option value="1024" selected>1024 px</option>
+            <option value="2048">2048 px</option>
+          </select>
+        </section>
+      </aside>
+
+      <section class="preview" aria-live="polite">
+        <canvas id="qr-canvas" aria-label="QR code preview"></canvas>
+        <div class="scan-warning" aria-live="assertive" hidden></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Client-side only — no data leaves your browser</p>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
